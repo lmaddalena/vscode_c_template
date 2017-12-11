@@ -3,22 +3,28 @@
     "configurations": [
         {
             "name": "C++ Launch",
-            "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/bin/a.out",
+            "type": "cppvsdbg",            
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
             "externalConsole": true,
             "linux": {
-                "MIMode": "gdb"
+                "MIMode": "gdb",
+	            "type": "cppdbg",
+				"program": "${workspaceRoot}/bin/a.out"
+
             },
             "osx": {
-                "MIMode": "lldb"
+                "MIMode": "lldb",
+	            "type": "cppdbg",
+				"program": "${workspaceRoot}/bin/a.out"
+
             },
             "windows": {
-                "MIMode": "gdb"
+                "MIMode": "gdb",
+				"program": "${workspaceRoot}/bin/a.exe"
             }
         },
         {
