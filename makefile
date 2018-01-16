@@ -1,15 +1,22 @@
 CC = gcc
 
-CFLAGS = -std=c99 -g
+CFLAGS = -std=c99 -g -Wall
 LDFLAGS =  
-ODIR = bin
-PROG = a.out
+TARGET = build/a.out
 
-all: main.o 
-	$(CC) $(LDFLAGS) $(ODIR)/*.o -o $(ODIR)/$(PROG)
+SRCS=$(wildcard src/**/*.c src/*.c)
+OBJS=$(patsubst %.c,%.o,$(SRCS))
 
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c -o $(ODIR)/main.o
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(LDFLAGS) $(OBJS) -o $(TARGET)
+
+$(TARGET): build $(OBJS)
+
+build:
+	@mkdir -p build
+	@mkdir -p bin
 
 clean:
-	rm -f $(ODIR)/$(PROG) $(ODIR)/*.o
+	rm -f $(TARGET) $(OBJS)
