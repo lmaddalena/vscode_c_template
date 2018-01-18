@@ -1,0 +1,1 @@
+cl src/*.c /Zi /Fe:bin/a.exe
