@@ -1,0 +1,7 @@
+----
+RUNNING: ./tests/unittest1_tests
+
+----- test1	Error: not exhaustive test
+ FAILED: not exhaustive test
+
+Tests run: 1
