@@ -2,10 +2,10 @@ CC = gcc
 
 CFLAGS = -g -Wall -Werror -Isrc -std=c99 -O2
 LDFLAGS =  
-TARGET = build/a.out
+TARGET = bin/a.out
 
 SRCS=$(wildcard src/**/*.c src/*.c)
-OBJS=$(patsubst %.c,%.o,$(SRCS))
+OBJS=$(patsubst src/%.c,build/%.o,$(SRCS))
 
 TEST_SRCS=$(wildcard tests/*_tests.c)
 TESTS=$(patsubst %.c,%,$(TEST_SRCS))
@@ -15,11 +15,8 @@ all: $(TARGET) tests
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) $(OBJS) -o $(TARGET)
 
-$(TARGET): build $(OBJS)
-
-build:
-	@mkdir -p build
-	@mkdir -p bin
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) -c $(SRCS) -o $(OBJS)
 
 tests: $(TESTS)
 	sh ./tests/runtests.sh
