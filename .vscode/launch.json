@@ -19,7 +19,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/a.out",
+            "program": "${workspaceFolder}/bin/a.out",
             "args": [],
             "preLaunchTask": "make",
             "stopAtEntry": false,
