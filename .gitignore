@@ -4,4 +4,4 @@ build
 *.obj
 *.pdb
 *.log
-_tests
+tests/*_tests
