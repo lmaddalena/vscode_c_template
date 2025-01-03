@@ -10,7 +10,7 @@ TESTS=$(patsubst %.c,%,$(TEST_SRCS))
 all: $(TARGET) tests
 
 $(TARGET): build/main.o
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) $^ -o $@ $(LDFLAGS) 
 
 build/main.o: src/main.c src/stda.h
 	$(CC) $(CFLAGS) -c $< -o $@
