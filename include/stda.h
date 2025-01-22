@@ -5,5 +5,6 @@
 #include <stdio.h>
 #include <errno.h>
 #include "trycatch.h"
+#include "logger.h"
 
 #endif //STDA_H

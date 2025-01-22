@@ -9,6 +9,9 @@ int main(int argc, char *argv[])
         float n = 3;
         float d = 0;
 
+        logger_log_info("n = %2.2f", n);
+        logger_log_info("d = %2.2f", d);
+
         if (d == 0)        
             THROW(DIVIDE_BY_ZERO_EXCEPTION);
 
@@ -21,7 +24,7 @@ int main(int argc, char *argv[])
     }
     CATCH (DIVIDE_BY_ZERO_EXCEPTION)
     {
-        printf("Attempted to divide by Zero\n"); 
+        logger_log_err("Attempted to divide by Zero");
     }
 
     CATCH (SYSTEM_EXCEPTION)
