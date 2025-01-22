@@ -10,7 +10,7 @@ void logger_log_info(char *msg, ...)
     logger_log_assert(msg != NULL);
 
     va_start(argp, msg);
-    fprintf(stderr, "INFO: ");
+    fprintf(stderr, "\x1b[32mINFO:\x1b[0m ");
     vfprintf(stderr, msg, argp);
     va_end(argp);
 
@@ -24,7 +24,7 @@ void logger_log_err(char *msg, ...)
     logger_log_assert(msg != NULL);
 
     va_start(argp, msg);
-    fprintf(stderr, "ERR : ");
+    fprintf(stderr, "\x1b[31mERR\x1b[0m : ");
     vfprintf(stderr, msg, argp);
     va_end(argp);
 
@@ -39,7 +39,7 @@ void logger_log_warn(char *msg, ...)
     logger_log_assert(msg != NULL);
 
     va_start(argp, msg);
-    fprintf(stderr, "WARN: ");
+    fprintf(stderr, "\x1b[33mWARN:\x1b[0m ");
     vfprintf(stderr, msg, argp);
     va_end(argp);
 
@@ -54,7 +54,7 @@ void logger_log_abort(char *msg, ...)
     logger_log_assert(msg != NULL);
 
     va_start(argp, msg);
-    fprintf(stderr, "ERR : ");
+    fprintf(stderr, "\x1b[31mERR\x1b[0m : ");
     vfprintf(stderr, msg, argp);
     va_end(argp);
 
