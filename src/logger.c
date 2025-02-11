@@ -51,7 +51,8 @@ void logger_log_abort(char *msg, ...)
 {
     va_list argp;
 
-    logger_log_assert(msg != NULL);
+    if(msg == NULL)
+        msg = "";
 
     va_start(argp, msg);
     fprintf(stderr, "\x1b[31mERR\x1b[0m : ");
