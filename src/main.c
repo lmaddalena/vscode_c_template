@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
         fp = fopen("Nofile", "r");
 
         if(errno > 0)
-            THROW(SYSTEM_EXCEPTION);
+            THROW(FILE_OPEN_EXCEPTION);
 
         fclose(fp);
 
@@ -33,9 +33,9 @@ int main(int argc, char *argv[])
         logger_log_err("Attempted to divide by Zero");
     }
 
-    CATCH (SYSTEM_EXCEPTION)
+    CATCH (FILE_OPEN_EXCEPTION)
     {
-        logger_log_err("errno: %d - %s", errno, strerror(errno));
+        logger_log_err("File open exception. errno: %d - %s", errno, strerror(errno));
     }
 
     ENDTRY
