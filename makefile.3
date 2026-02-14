@@ -11,7 +11,6 @@
 #					-lsqlite3: links the program with the SQLite3 library
 #					-lm: links the math library
 # TARGET:			name of the final executable file
-# SRC_DIR:			spcifies the directory containing source files
 # LIB_DIR:			specifies the directory containing libraries used by the program
 # BUILD_DIR:		specifies the directory where intermediate object files will be created during compilation
 # BIN_DIR:			specifies the directory where the final executable will be placed
@@ -34,18 +33,18 @@
 #					For each source file (%.c), the following command is executed: * $(CC) $(CFLAGS) -c $< -o $@: 
 #					This line compiles the source file ($<) with the specified flags ($(CFLAGS)) and creates an object file named after the source file but with a .o extension ($@).
 
-SRC_DIR = src
-LIB_DIR = lib
-BUILD_DIR = build
-BIN_DIR = bin
+LIB_DIR = ./lib
+BUILD_DIR = ./build
+BIN_DIR = ./bin
 
 CC = gcc
 CFLAGS = -std=c99 -g -Wall -Isrc -Werror
 LDFLAGS = -L$(LIB_DIR) -llogger -lpthread -ldl -lsqlite3
 TARGET = $(BIN_DIR)/a.out
 
-SRCS = $(wildcard $(SRC_DIR)/**/*.c $(SRC_DIR)/*.c)
-OBJS = $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+
+SRCS = $(wildcard src/**/*.c src/*.c)
+OBJS = $(patsubst %.c, %.o, $(SRCS))
 
 TEST_SRCS = $(wildcard tests/*_tests.c)
 TESTS = $(patsubst %.c, %, $(TEST_SRCS))
@@ -56,7 +55,7 @@ $(TARGET): $(OBJS)
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
 	
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -67,8 +66,8 @@ tests: $(TESTS)
 	@sh ./tests/runtests.sh
 
 clean:
-	@rm -rf $(BUILD_DIR)/* $(BIN_DIR)/*
-	@rm -rf $(TESTS)
+	@rm -f $(BUILD_DIR)/* $(BIN_DIR)/*
+	@rm -f $(TESTS)
 	@echo "Clean completed."
 
 .PHONY: all tests clean
