@@ -12,14 +12,20 @@ int main(int argc, char *argv[])
         logger_log_info("n = %2.2f", n);
         logger_log_info("d = %2.2f", d);
 
+        FILE *fp;
+        errno = 0;
+        fp = fopen("Nofile", "r");
+
+        if(errno > 0)
+            THROW(SYSTEM_EXCEPTION);
+
+        fclose(fp);
+
         if (d == 0)        
             THROW(DIVIDE_BY_ZERO_EXCEPTION);
 
         float r = n/d;
         printf("%2.2f/%2.2f=%2.2f\n", n, d, r);
-
-        if(errno > 0)
-            THROW(SYSTEM_EXCEPTION);
 
     }
     CATCH (DIVIDE_BY_ZERO_EXCEPTION)
@@ -29,8 +35,7 @@ int main(int argc, char *argv[])
 
     CATCH (SYSTEM_EXCEPTION)
     {
-        printf("Value of errno: %d\n ", errno); 
-        perror("Message from perror"); 
+        logger_log_err("errno: %d - %s", errno, strerror(errno));
     }
 
     ENDTRY
