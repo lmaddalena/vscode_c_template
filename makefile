@@ -38,6 +38,7 @@ SRC_DIR = src
 LIB_DIR = lib
 BUILD_DIR = build
 BIN_DIR = bin
+TEST_DIR = tests
 
 CC = gcc
 CFLAGS = -std=c99 -g -Wall -Isrc -Werror
@@ -50,18 +51,22 @@ OBJS = $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 TEST_SRCS = $(wildcard tests/*_tests.c)
 TESTS = $(patsubst %.c, %, $(TEST_SRCS))
 
-all: $(TARGET) tests
+# tests only for library 
+all: $(TARGET) #tests 
 
 $(TARGET): $(OBJS) 
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS) 
+	@echo "🚀 Done! Run with: ./$(TARGET)"
 	
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "✅ Target compiled (file/s .o created in ./$(BUILD_DIR))"
 
 $(TEST_DIR)/%_tests: $(TEST_DIR)/%_tests.c $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
+	@echo "✅ Tests compiled"
 
 tests: $(TESTS)
 	@sh ./tests/runtests.sh
